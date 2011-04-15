@@ -8,48 +8,53 @@ class GameTest < MiniTest::Unit::TestCase
   def setup
     @game   = Game.new :dimensions => [5, 5]
 
-    @player = MockedCharacter.new
-    @enemy1 = MockedCharacter.new
+    @player = MockedCharacter.new('Player')
+    @enemy1 = MockedCharacter.new('Enemy1')
 
     @game.characters << @player
     @game.characters << @enemy1
   end
 
   def test_call_before_turn_start_callback_on_all_characters
-    mock(:before_turn_start, MockedCharacter) do
-      @called_actions[:before_turn_start] += 1
-    end
-
     @game.run_a_turn
+    @game.characters.each do |char|
+      assert_action_called(:before_turn_start, char)
+    end
+  end
 
-    assert_equal(1, @player.called_actions[:before_turn_start],
-                 '#before_turn_start never invoked on Player')
-    assert_equal(1, @enemy1.called_actions[:before_turn_start],
-                 '#before_turn_start never invoked on NPC')
+  def test_ask_which_action_to_run_on_all_characters
+    @game.run_a_turn
+    @game.characters.each do |char|
+      assert_action_called(:action?, char, 2)
+    end
+  end
+
+  def test_know_action_types
+    assert_equal([:move, :full_attack, :move_and_attack],
+                 @game.know_actions)
   end
 
   private
-  def mock(method, o, &block)
-    o.define_singleton_method(method, &block) unless o.is_a? Class
-
-    o.class_eval do
-      define_method(method, &block)
-    end
+  def assert_action_called(action, char, times = 1)
+    calls = char.called_actions[action]
+    error = "#{char.name}#action? invoked #{calls} times."
+    assert_equal(times, calls, error)
   end
 
   class MockedCharacter
-    attr_accessor :called_actions
+    attr_accessor :called_actions, :name
 
-    def initialize
-      @called_actions = Hash.new(0)
+    def initialize(name)
+      @name, @called_actions = name, Hash.new(0)
     end
 
-    def do(action, *args)
-      @called_actions[action] += 1
+    def method_missing(sym, *args, &block)
+      @called_actions[sym] += 1
     end
 
-    def dead?
-      false
+    def action?
+      @called_actions[:action?] += 1
+      :full_attack if @called_actions[:action?] > 1
     end
   end
 end
