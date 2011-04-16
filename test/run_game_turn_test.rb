@@ -4,7 +4,7 @@
 require 'minitest/autorun'
 require 'game'
 
-class GameTest < MiniTest::Unit::TestCase
+class RunGameTurnTest < MiniTest::Unit::TestCase
   def setup
     @game   = Game.new :dimensions => [5, 5]
 
