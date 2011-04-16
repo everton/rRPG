@@ -18,15 +18,16 @@ class Game
     @characters.each do |c|
       c.before_turn_start
 
-      action = c.action? until know_actions.include? action
+      world = scenario_for(c)
+      action = c.action?(world) until know_actions.include? action
 
-      c.send(action, scenario_for(c))
+      c.send(action, world)
     end
   end
 
   private
   def scenario_for(character)
     others = @characters.select{|c| c != character }
-    {:enemies =>  others, :tl => [0, 0], :br => @limits}
+    {:others => others, :tl => [0, 0], :br => @limits}
   end
 end

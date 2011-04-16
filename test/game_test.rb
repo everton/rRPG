@@ -29,6 +29,18 @@ class GameTest < MiniTest::Unit::TestCase
     end
   end
 
+  def test_ask_which_action_params
+    @game.run_a_turn
+
+    assert_equal({:others => [@enemy1],
+                   :tl => [0, 0], :br => [4, 4]},
+                 @player.instance_variable_get("@scenario"))
+
+    assert_equal({:others => [@player],
+                   :tl => [0, 0], :br => [4, 4]},
+                 @enemy1.instance_variable_get("@scenario"))
+  end
+
   def test_call_action_on_all_characters
     @game.run_a_turn
     @game.characters.each do |char|
@@ -37,22 +49,19 @@ class GameTest < MiniTest::Unit::TestCase
   end
 
   def test_call_action_params
-    def @player.full_attack(world = {})
-      @enemies  = world[:enemies]
-      @tl_limit = world[:tl]
-      @br_limit = world[:br]
+    def @player.full_attack(scenario = {})
+      @scenario = scenario
     end
 
     @game.run_a_turn
 
-    assert_equal([@enemy1], @player.
-                 instance_variable_get("@enemies"))
+    assert_equal({:others => [@enemy1],
+                   :tl => [0, 0], :br => [4, 4]},
+                 @player.instance_variable_get("@scenario"))
 
-    assert_equal([0, 0], @player.
-                 instance_variable_get("@tl_limit"))
-
-    assert_equal([4, 4], @player.
-                 instance_variable_get("@br_limit"))
+    assert_equal({:others => [@player],
+                   :tl => [0, 0], :br => [4, 4]},
+                 @enemy1.instance_variable_get("@scenario"))
   end
 
   def test_know_action_types
@@ -78,7 +87,8 @@ class GameTest < MiniTest::Unit::TestCase
       @called_actions[sym] += 1
     end
 
-    def action?
+    def action?(scenario = {})
+      @scenario = scenario
       @called_actions[:action?] += 1
       :full_attack if @called_actions[:action?] > 1
     end
