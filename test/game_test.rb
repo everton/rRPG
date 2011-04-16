@@ -29,6 +29,32 @@ class GameTest < MiniTest::Unit::TestCase
     end
   end
 
+  def test_call_action_on_all_characters
+    @game.run_a_turn
+    @game.characters.each do |char|
+      assert_action_called(:full_attack, char, 1)
+    end
+  end
+
+  def test_call_action_params
+    def @player.full_attack(world = {})
+      @enemies  = world[:enemies]
+      @tl_limit = world[:tl]
+      @br_limit = world[:br]
+    end
+
+    @game.run_a_turn
+
+    assert_equal([@enemy1], @player.
+                 instance_variable_get("@enemies"))
+
+    assert_equal([0, 0], @player.
+                 instance_variable_get("@tl_limit"))
+
+    assert_equal([4, 4], @player.
+                 instance_variable_get("@br_limit"))
+  end
+
   def test_know_action_types
     assert_equal([:move, :full_attack, :move_and_attack],
                  @game.know_actions)

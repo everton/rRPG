@@ -5,6 +5,13 @@ class Game
 
   def initialize(options = {})
     @characters = []
+    @dimensions = options[:dimensions] || [10, 10]
+    @limits     = [@dimensions.first - 1,
+                   @dimensions.last  - 1]
+  end
+
+  def know_actions
+    [:move, :full_attack, :move_and_attack]
   end
 
   def run_a_turn
@@ -12,10 +19,14 @@ class Game
       c.before_turn_start
 
       action = c.action? until know_actions.include? action
+
+      c.send(action, scenario_for(c))
     end
   end
 
-  def know_actions
-    [:move, :full_attack, :move_and_attack]
+  private
+  def scenario_for(character)
+    others = @characters.select{|c| c != character }
+    {:enemies =>  others, :tl => [0, 0], :br => @limits}
   end
 end
