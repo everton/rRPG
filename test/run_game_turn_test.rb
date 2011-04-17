@@ -64,8 +64,22 @@ class RunGameTurnTest < MiniTest::Unit::TestCase
                  @enemy1.instance_variable_get("@scenario"))
   end
 
+  def test_run_a_turn_return_ok_in_normal_turns
+    assert(@game.run_a_turn,
+           '#run_a_turn should returning true to keep the loop chain')
+  end
+
+  def test_stop_game_if_quit_action_called
+    def @player.action? scenario
+      :quit
+    end
+
+    assert_nil(@game.run_a_turn,
+               'Game#finish_game not invoked when :quit action wass called')
+  end
+
   def test_know_action_types
-    assert_equal([:move, :full_attack, :move_and_attack],
+    assert_equal([:quit, :move, :full_attack, :move_and_attack],
                  @game.know_actions)
   end
 

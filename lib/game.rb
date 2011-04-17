@@ -11,7 +11,7 @@ class Game
   end
 
   def know_actions
-    [:move, :full_attack, :move_and_attack]
+    [:quit, :move, :full_attack, :move_and_attack]
   end
 
   def run_a_turn
@@ -20,6 +20,8 @@ class Game
 
       world = scenario_for(c)
       action = c.action?(world) until know_actions.include? action
+
+      return nil if action == :quit
 
       c.send(action, world)
     end
