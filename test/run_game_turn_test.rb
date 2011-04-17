@@ -1,10 +1,8 @@
-#!/usr/bin/env ruby
 #-*- coding: utf-8 -*-
 
-require 'minitest/autorun'
-require 'game'
+require 'test_helper'
 
-class RunGameTurnTest < MiniTest::Unit::TestCase
+class RunGameTurnTest < GameTestCase
   def setup
     @game   = Game.new :dimensions => [5, 5]
 
@@ -81,30 +79,5 @@ class RunGameTurnTest < MiniTest::Unit::TestCase
   def test_know_action_types
     assert_equal([:quit, :move, :full_attack, :move_and_attack],
                  @game.know_actions)
-  end
-
-  private
-  def assert_action_called(action, char, times = 1)
-    calls = char.called_actions[action]
-    error = "#{char.name}#action? invoked #{calls} times."
-    assert_equal(times, calls, error)
-  end
-
-  class MockedCharacter
-    attr_accessor :called_actions, :name
-
-    def initialize(name)
-      @name, @called_actions = name, Hash.new(0)
-    end
-
-    def method_missing(sym, *args, &block)
-      @called_actions[sym] += 1
-    end
-
-    def action?(scenario = {})
-      @scenario = scenario
-      @called_actions[:action?] += 1
-      :full_attack if @called_actions[:action?] > 1
-    end
   end
 end
