@@ -1,0 +1,8 @@
+= About
+
+This is just a small and didactical RPG like game written in Ruby for
+present some basic language features, sintactical appeals and concepts.
+
+== License
+
+rRPG is released under the MIT license
