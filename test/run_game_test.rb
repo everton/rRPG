@@ -31,7 +31,7 @@ class RunGameTest < GameTestCase
     end
   end
 
-  def test_basic_winner_identification
+  def test_player_is_winner_identification
     def @enemy1.dead?
       true
     end
@@ -39,7 +39,7 @@ class RunGameTest < GameTestCase
     assert_equal :player, @game.run!
   end
 
-  def test_basic_winner_identification
+  def test_cpu_is_winner_identification
     def @player.dead?
       true
     end
