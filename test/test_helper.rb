@@ -14,6 +14,13 @@ class GameTestCase < MiniTest::Unit::TestCase
     error = "#{char.name}#action? invoked #{calls} times."
     assert_equal(times, calls, error)
   end
+
+  def assert_correct_scenario_on(char, game = @game)
+    others = game.characters.reject{|c| c == char }
+
+    assert_equal({others: others, tl: [0, 0], br: game.limits},
+                 char.instance_variable_get("@scenario"))
+  end
 end
 
 class MockedCharacter

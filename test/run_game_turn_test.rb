@@ -24,42 +24,25 @@ class RunGameTurnTest < GameTestCase
     @game.run_a_turn
     @game.characters.each do |char|
       assert_action_called(:action?, char, 2)
+
+      assert_correct_scenario_on char
     end
-  end
-
-  def test_ask_which_action_params
-    @game.run_a_turn
-
-    assert_equal({:others => [@enemy1],
-                   :tl => [0, 0], :br => [4, 4]},
-                 @player.instance_variable_get("@scenario"))
-
-    assert_equal({:others => [@player],
-                   :tl => [0, 0], :br => [4, 4]},
-                 @enemy1.instance_variable_get("@scenario"))
   end
 
   def test_call_action_on_all_characters
     @game.run_a_turn
     @game.characters.each do |char|
-      assert_action_called(:full_attack, char, 1)
+      assert_action_called(:full_attack, char)
+
+      assert_correct_scenario_on char
     end
   end
 
   def test_call_action_params
-    def @player.full_attack(scenario = {})
-      @scenario = scenario
-    end
-
     @game.run_a_turn
 
-    assert_equal({:others => [@enemy1],
-                   :tl => [0, 0], :br => [4, 4]},
-                 @player.instance_variable_get("@scenario"))
-
-    assert_equal({:others => [@player],
-                   :tl => [0, 0], :br => [4, 4]},
-                 @enemy1.instance_variable_get("@scenario"))
+    assert_correct_scenario_on @enemy1
+    assert_correct_scenario_on @player
   end
 
   def test_run_a_turn_return_ok_in_normal_turns
