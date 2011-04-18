@@ -19,6 +19,10 @@ class NonPlayerCharacter < Character
     goto(p.x, p.y, full_displacement)
   end
 
+  def full_attack(scenario)
+    player_character(scenario).ht -= full_damage if attack_success?
+  end
+
   private
   def player_character(scenario)
     scenario[:others].each do |char|

@@ -1,11 +1,12 @@
 #-*- coding: utf-8 -*-
 
 class Character
-  attr_accessor :name, :x, :y, :ht
+  attr_accessor :name, :x, :y, :ht, :st
 
   def initialize(name = nil, options = {})
     @name = name || self.to_s
     @ht = options[:ht] || 10
+    @st = options[:st] || 2.d6
   end
 
   class << self
@@ -73,8 +74,16 @@ class Character
     d < 1 ? 1 : d
   end
 
+  def attack_success?
+    3.d6.roll >= @ht
+  end
+
+  def full_damage
+    @st.roll
+  end
+
   def dead?
-    false # TODO: implement current logic based on HT attr
+    @ht < 1
   end
 
   def distance_of(x, y)
