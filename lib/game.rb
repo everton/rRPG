@@ -1,7 +1,7 @@
 #-*- coding: utf-8 -*-
 
 class Game
-  attr_accessor :characters
+  attr_accessor :characters, :limits
 
   def initialize(options = {})
     @characters = []

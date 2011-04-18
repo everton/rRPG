@@ -7,20 +7,19 @@ class NonPlayerCharacter < Character
 
     u = √ 2
     if d > u
-      d > 2 * u ? :move : :move_and_attack
+      d > reduced_displacement ? :move : :move_and_attack
     else
       :full_attack
     end
   end
 
-  private
-  def distance_of(xo, yo)
-    Δx = xo - self.x
-    Δy = yo - self.y
+  def move(scenario)
+    p = player_character(scenario)
 
-    √((Δx ** 2) + (Δy ** 2))
+    goto(p.x, p.y, full_displacement)
   end
 
+  private
   def player_character(scenario)
     scenario[:others].each do |char|
       return char if char.is_a? PlayerCharacter

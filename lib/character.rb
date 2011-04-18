@@ -1,7 +1,12 @@
 #-*- coding: utf-8 -*-
 
 class Character
-  attr_accessor :x, :y
+  attr_accessor :name, :x, :y, :ht
+
+  def initialize(name = nil, options = {})
+    @name = name || self.to_s
+    @ht = options[:ht] || 10
+  end
 
   class << self
     def before_turn_start(*callbacks)
@@ -42,7 +47,40 @@ class Character
     end
   end
 
+  def goto(x, y, displacement)
+    return if x == @x and y == @y
+
+    dist = distance_of(x, y)
+    r = displacement / dist
+
+    new_x = @x + ((x - @x) * r).to_i
+    new_y = @y + ((y - @y) * r).to_i
+
+    if(distance_of(new_x, new_y) > dist)
+      @x, @y = x, y
+    else
+      @x, @y = new_x, new_y
+    end
+  end
+
+  def full_displacement
+    d = @ht / 2
+    d < 1 ? 1 : d
+  end
+
+  def reduced_displacement
+    d = @ht / 3
+    d < 1 ? 1 : d
+  end
+
   def dead?
     false # TODO: implement current logic based on HT attr
+  end
+
+  def distance_of(x, y)
+    Δx = Float(x - @x)
+    Δy = Float(y - @y)
+
+    √((Δx ** 2) + (Δy ** 2))
   end
 end

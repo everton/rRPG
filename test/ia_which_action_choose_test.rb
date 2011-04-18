@@ -31,7 +31,7 @@ class IAWhichActionChooseTest < GameTestCase
   end
 
   def test_choose_move_if_far_away
-    @player.x, @player.y = 6, 3
+    @player.x, @player.y = 7, 3
     assert_equal :move, @enemy1.action?(@scenario)
   end
 end
