@@ -35,17 +35,37 @@ class IABasicActionsTest < GameTestCase
   def test_full_attack_should_discounting_from_other_ht
     @player.x, @player.y = 2, 4
 
-    def @enemy1.full_damage
-      3
-    end
-
-    def @enemy1.attack_success?
-      true
-    end
+    def @enemy1.full_damage; 3; end
+    def @enemy1.attack_success?; true; end
 
     @enemy1.full_attack @scenario
 
     assert_equal 7, @player.ht
+  end
+
+  def test_move_and_attack_should
+    @player.x, @player.y = 4, 5 # =~ 2.24u of distance
+
+    def @enemy1.reduced_damage; 2; end
+    def @enemy1.attack_success?; true; end
+
+    @enemy1.move_and_attack @scenario
+
+    assert_equal 4, @enemy1.x
+    assert_equal 5, @enemy1.y
+
+    assert_equal 8, @player.ht
+  end
+
+  def test_should_not_retrieve_others_ht_if_not_successful
+    @player.x, @player.y = 2, 4
+
+    def @enemy1.full_damage; 3; end
+    def @enemy1.attack_success?; false; end
+
+    @enemy1.full_attack @scenario
+
+    assert_equal 10, @player.ht
   end
 
   def test_dead
