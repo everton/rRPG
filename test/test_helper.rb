@@ -1,10 +1,12 @@
 #-*- coding: utf-8 -*-
 
+require 'minitest/autorun'
+require 'support'
+
 require 'game'
 require 'character'
 require 'player_character'
-
-require 'minitest/autorun'
+require 'non_player_character'
 
 class GameTestCase < MiniTest::Unit::TestCase
   def assert_action_called(action, char, times = 1)

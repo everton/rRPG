@@ -1,6 +1,8 @@
 #-*- coding: utf-8 -*-
 
 class Character
+  attr_accessor :x, :y
+
   class << self
     def before_turn_start(*callbacks)
       @before_turn_start_callbacks ||= []
