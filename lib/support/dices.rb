@@ -7,6 +7,11 @@ class Fixnum
       self
     end
 
+    def dices.-(modifier) # 3.d6 - 2
+      @modifier = -modifier
+      self
+    end
+
     def dices.roll
       self.inject(@modifier || 0){|s, e| s + rand(e) + 1 }
     end

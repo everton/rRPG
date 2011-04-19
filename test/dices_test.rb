@@ -27,6 +27,11 @@ class DicesTest < GameTestCase
     assert_equal @expected + 2, @dices.roll
   end
 
+  def test_dices_with_negative_modifier
+    @dices -= 2
+    assert_equal @expected - 2, @dices.roll
+  end
+
   def teardown
     unmock_rand!
   end
