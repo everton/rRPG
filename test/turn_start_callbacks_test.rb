@@ -3,28 +3,28 @@
 require 'test_helper'
 
 class BeforeTurnStartCallbacksTest < GameTestCase
-  def test_before_turn_start_without_callbacks_registered
+  def test_without_callbacks_registered
     char = CharacterWithoutCallbacks.new
     char.turn_start!
 
-    assert_equal nil, char.callback_calls
+    refute char.callback_calls
   end
 
-  def test_before_turn_start_callback
+  def test_turn_start_should_calls_callback
     char = CharacterWithCallbacks.new
     char.turn_start!
 
     assert_equal 2, char.callback_calls
   end
 
-  def test_before_turn_start_callbacks_should_be_called_once
+  def test_callbacks_should_be_called_once
     char = CharacterWithRepeatedCallbacks.new
     char.turn_start!
 
     assert_equal 2, char.callback_calls
   end
 
-  def test_before_turn_start_callbacks_on_objects
+  def test_instances_callbacks
     magneto   = CharacterWithCallbacks.new
     wolverine = CharacterWithCallbacks.new
 
