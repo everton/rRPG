@@ -1,0 +1,29 @@
+#!/usr/bin/env ruby
+#-*- coding: utf-8 -*-
+
+$: << './lib'
+
+require 'support'
+require 'game'
+require 'character'
+require 'player_character'
+require 'cli_player_character'
+require 'non_player_character'
+
+@game   = Game.new :dimensions => [25, 25]
+
+@player = CLIPlayerCharacter.new "Everton", :ht => 12, :st => 3.d6
+
+@enemy1 = NonPlayerCharacter.new "Orc 1"
+@enemy2 = NonPlayerCharacter.new "Orc 2"
+
+@player.x, @player.y =  5,  7
+@enemy1.x, @enemy1.y = 10, 20
+@enemy2.x, @enemy2.y = 20, 10
+
+@game.characters << @player # I have the initiative
+@game.characters << @enemy1
+@game.characters << @enemy2
+
+winner = @game.run!
+puts "Winner: #{winner.inspect}"
