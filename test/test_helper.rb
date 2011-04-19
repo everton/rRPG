@@ -38,8 +38,8 @@ class GameTestCase < MiniTest::Unit::TestCase
   end
 
   def assert_on_position(char, x, y)
-    assert_equal x, char.x
-    assert_equal y, char.y
+    assert_equal x, char.x, 'X'
+    assert_equal y, char.y, 'Y'
   end
 end
 

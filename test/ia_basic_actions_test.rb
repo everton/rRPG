@@ -24,12 +24,11 @@ class IABasicActionsTest < GameTestCase
   end
 
   def test_far_move_action
-    @player.x, @player.y = 2, 10 # =~ 7.07u of distance
+    @player.x, @player.y = 9, 9 # =~ 12.73u of distance
 
     @enemy1.move @scenario
 
-    assert_equal 3, @enemy1.x
-    assert_equal 7, @enemy1.y
+    assert_on_position(@enemy1, 7, 7)
   end
 
   def test_full_attack_should_discounting_from_other_ht

@@ -5,6 +5,9 @@ class Character
 
   def initialize(name = nil, options = {})
     @name = name || self.to_s
+
+    @x  = options[:x ] || 0
+    @y  = options[:y ] || 0
     @ht = options[:ht] || 10
     @st = options[:st] || 2.d6
   end
@@ -65,21 +68,24 @@ class Character
   end
 
   def full_displacement
-    d = @ht / 2
-    d < 1 ? 1 : d
+    2 + (@ht / 2)
   end
 
   def reduced_displacement
-    d = @ht / 3
-    d < 1 ? 1 : d
+    2 + (@ht / 4)
   end
 
   def attack_success?
-    3.d6.roll >= @ht
+    3.d6.roll <= @ht
   end
 
   def full_damage
     @st.roll
+  end
+
+  def reduced_damage
+    damage = full_damage / 2
+    damage < 2 ? 1 : damage
   end
 
   def dead?
