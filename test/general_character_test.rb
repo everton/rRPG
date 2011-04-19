@@ -63,8 +63,8 @@ class GeneralCharacterTest < GameTestCase
   end
 
   def test_attack_success?
-    mock_rand_with! 3 do # rand(n) => 3
-      # d6() with rand returning 3 becames 4, so: 3.d6 => 12
+    # if rand(n) => 3 then d6 becames 4
+    mock_rand_with! 3 do
       assert @char.attack_success?
 
       @char.ht = 12
@@ -76,8 +76,35 @@ class GeneralCharacterTest < GameTestCase
     end
   end
 
-  # TODO: test_full_damage
-  # TODO: test_reduced_damage
+  def test_full_damage
+    # if rand(n) => 3 then d6 becames 4
+    mock_rand_with! 3 do
+      assert_equal 12, @char.full_damage
+      @char.st = 3.d6 - 2
+      assert_equal 10, @char.full_damage
+    end
+  end
+
+  def test_minimum_full_damage
+    # if rand(n) => 0 then d6 becames 1
+    mock_rand_with! 0 do
+      assert_equal 3, @char.full_damage
+    end
+  end
+
+  def test_reduced_damage
+    # if rand(n) => 3 then d6 becames 4
+    mock_rand_with! 3 do
+      assert_equal 6, @char.reduced_damage # 12 / 3 + 2
+    end
+  end
+
+  def test_minimum_reduced_damage
+    # if rand(n) => 0 then d6 becames 1
+    mock_rand_with! 0 do
+      assert_equal 3, @char.reduced_damage # 3 / 3 + 2
+    end
+  end
 
   def test_dead?
     refute @char.dead?

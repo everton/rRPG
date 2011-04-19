@@ -84,8 +84,7 @@ class Character
   end
 
   def reduced_damage
-    damage = full_damage / 2
-    damage < 2 ? 1 : damage
+    2 + full_damage / 3
   end
 
   def dead?
