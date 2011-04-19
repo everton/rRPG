@@ -41,27 +41,20 @@ class CLIPlayerCharacter < PlayerCharacter
   end
 
   def full_attack(scenario)
-    enemy = who_to_attack(scenario)
-    success = attack_success?
-    enemy.ht -= full_damage if success
-    puts "Success? #{success} Enemy.ht: #{enemy.ht}"
-  end
+    e = who_to_attack(scenario)
+    return if distance_of(e.x, e.y) > √(2) # is not neighbor
 
-  def dead?
-    dead = @ht < 1
-    puts "+++++" if dead
-    dead
+    e.ht -= full_damage if attack_success?
   end
 
   def move_and_attack(scenario)
     x, y = where_to_go?(scenario)
     goto(x, y, reduced_displacement)
 
-    enemy = who_to_attack(scenario)
-    success = attack_success?
-    enemy.ht -= reduced_damage if success
+    e = who_to_attack(scenario)
+    return if distance_of(e.x, e.y) > √(2) # is not neighbor
 
-    puts "Success? #{success} Enemy.ht: #{enemy.ht}"
+    e.ht -= reduced_damage if attack_success?
   end
 
   private
