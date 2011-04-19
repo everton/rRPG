@@ -47,6 +47,28 @@ class BeforeTurnStartCallbacksTest < GameTestCase
            'ObjectCallback not called on before_turn_start')
   end
 
+  def test_turn_start_order
+    char = CharacterWithoutCallbacks.new
+
+    def char.callback1
+      @called_callbacks ||= []
+      @called_callbacks << '1st'
+    end
+
+    def char.callback2
+      @called_callbacks ||= []
+      @called_callbacks << '2nd'
+    end
+
+    char.instance_variable_set("@before_turn_start_callbacks",
+                               ['callback1', :callback2])
+
+    char.turn_start!
+
+    assert_equal(char.instance_variable_get("@called_callbacks"),
+                 ['1st', '2nd'])
+  end
+
   private
   class CharacterWithoutCallbacks < Character
     attr_accessor :callback_calls
