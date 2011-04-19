@@ -22,6 +22,8 @@ require 'player_character'
 require 'non_player_character'
 
 class GameTestCase < MiniTest::Unit::TestCase
+  include Directions
+
   def assert_action_called(action, char, times = 1)
     calls = char.called_actions[action]
     error = "#{char.name}#action? invoked #{calls} times."
@@ -33,6 +35,11 @@ class GameTestCase < MiniTest::Unit::TestCase
 
     assert_equal({others: others, tl: [0, 0], br: game.limits},
                  char.instance_variable_get("@scenario"))
+  end
+
+  def assert_on_position(char, x, y)
+    assert_equal x, char.x
+    assert_equal y, char.y
   end
 end
 
