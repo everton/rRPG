@@ -116,5 +116,11 @@ class GeneralCharacterTest < GameTestCase
     assert @char.dead?
   end
 
-  # TODO: test_distance_of(x, y)
+  def test_distance_of
+    √2 = Math.sqrt(2)
+
+    assert_equal  1, @char.distance_of(@char.x + 1, @char.y)
+    assert_equal  5, @char.distance_of(@char.x + 3, @char.y + 4)
+    assert_equal √2, @char.distance_of(@char.x + 1, @char.y + 1)
+  end
 end
