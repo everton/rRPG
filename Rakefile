@@ -1,4 +1,5 @@
 require 'rake/testtask'
+require 'simplecov'
 
 Rake::TestTask.new do |t|
   t.libs << "test"
@@ -7,3 +8,10 @@ Rake::TestTask.new do |t|
 end
 
 task :default => [:test]
+
+task :clean do
+  `rm -rf coverage/*`
+  `find ./ -name \\*~ -delete`
+end
+
+task :test => [:clean]
