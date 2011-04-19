@@ -1,0 +1,38 @@
+GEM
+  remote: http://rubygems.org/
+  remote: http://gems.github.com/
+  specs:
+    ParseTree (3.0.7)
+      RubyInline (>= 3.7.0)
+      sexp_processor (>= 3.0.0)
+    RubyInline (3.9.0)
+      ZenTest (~> 4.3)
+    ZenTest (4.5.0)
+    flay (1.4.2)
+      ruby_parser (~> 2.0)
+      sexp_processor (~> 3.0)
+    flog (2.5.1)
+      ruby_parser (~> 2.0)
+      sexp_processor (~> 3.0)
+    heckle (1.4.3)
+      ParseTree (>= 2.0.0)
+      ZenTest (>= 3.5.2)
+      ruby2ruby (>= 1.1.6)
+    ruby2ruby (1.2.5)
+      ruby_parser (~> 2.0)
+      sexp_processor (~> 3.0)
+    ruby_parser (2.0.6)
+      sexp_processor (~> 3.0)
+    sexp_processor (3.0.5)
+    simplecov (0.4.2)
+      simplecov-html (~> 0.4.4)
+    simplecov-html (0.4.4)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  flay
+  flog
+  heckle
+  simplecov
