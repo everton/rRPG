@@ -65,6 +65,16 @@ class GeneralCharacterTest < GameTestCase
   # TODO: test_attack_success?
   # TODO: test_full_damage
   # TODO: test_reduced_damage
-  # TODO: test_dead?
+
+  def test_dead?
+    refute @char.dead?
+
+    @char.ht = 0
+    assert @char.dead?
+
+    @char.ht = -10
+    assert @char.dead?
+  end
+
   # TODO: test_distance_of(x, y)
 end
