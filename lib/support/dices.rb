@@ -4,6 +4,7 @@ class Fixnum
 
     def dices.+(modifier) # 3.d6 + 2
       @modifier = modifier
+      self
     end
 
     def dices.roll
