@@ -41,6 +41,26 @@ class GameTestCase < MiniTest::Unit::TestCase
     assert_equal x, char.x, 'X'
     assert_equal y, char.y, 'Y'
   end
+
+  def mock_rand_with!(n, &block)
+    Kernel.module_eval do
+      alias original_rand rand
+      define_method :rand do |x|
+        n
+      end
+    end
+
+    if block_given?
+      yield
+      unmock_rand!
+    end
+  end
+
+  def unmock_rand!
+    Kernel.module_eval do
+      alias rand original_rand
+    end
+  end
 end
 
 class MockedCharacter

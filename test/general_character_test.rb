@@ -62,7 +62,20 @@ class GeneralCharacterTest < GameTestCase
     assert_equal 2, @char.reduced_displacement
   end
 
-  # TODO: test_attack_success?
+  def test_attack_success?
+    mock_rand_with! 3 do # rand(n) => 3
+      # d6() with rand returning 3 becames 4, so: 3.d6 => 12
+      assert @char.attack_success?
+
+      @char.ht = 12
+      assert(@char.attack_success?,
+             'Should return success if HT == to dices rolling')
+
+      @char.ht = 13
+      assert(@char.attack_success?, 'Should detect fail')
+    end
+  end
+
   # TODO: test_full_damage
   # TODO: test_reduced_damage
 

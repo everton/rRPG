@@ -76,7 +76,7 @@ class Character
   end
 
   def attack_success?
-    3.d6.roll <= @ht
+    @ht >= 3.d6.roll
   end
 
   def full_damage

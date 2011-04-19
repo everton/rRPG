@@ -4,10 +4,7 @@ require 'test_helper'
 
 class DicesTest < GameTestCase
   def setup
-    Kernel.module_eval do
-      alias original_rand rand
-      def rand(n); 2; end
-    end
+    mock_rand_with! 2
 
     @dices = 3.d6
 
@@ -31,8 +28,6 @@ class DicesTest < GameTestCase
   end
 
   def teardown
-    Kernel.module_eval do
-      alias rand original_rand
-    end
+    unmock_rand!
   end
 end
