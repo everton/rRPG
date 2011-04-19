@@ -1,8 +1,10 @@
 #-*- coding: utf-8 -*-
 
 require 'minitest/autorun'
-require 'support'
+require 'simplecov'
+SimpleCov.start
 
+require 'support'
 require 'game'
 require 'character'
 require 'player_character'
