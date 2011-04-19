@@ -25,4 +25,5 @@ require 'non_player_character'
 @game.characters << @enemy1
 @game.characters << @enemy2
 
-@game.run!
+winner = @game.run!
+puts "Winner: #{winner.inspect}"

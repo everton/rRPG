@@ -16,7 +16,7 @@ class CLIPlayerCharacter < PlayerCharacter
       0.upto(cols) do |col|
         c = '  '
         others.each do |e|
-          c = 'e ' if e.x == col and e.y == line
+          c = "#{e.dead? ? '+' : 'e'} " if e.x == col and e.y == line
         end
 
         c += ((@x == col and @y == line) ? '*' : ' ')
@@ -31,7 +31,7 @@ class CLIPlayerCharacter < PlayerCharacter
       puts "#{e.name}:  ht => #{e.ht} x,y => (#{e.x} #{e.y}) dist: #{distance_of(e.x, e.y)}"
     end
     puts
-    puts "Actions: quit, move, full_attack, move_and_attack\n"
+    print "Actions: quit, move, full_attack, move_and_attack: "
     STDIN.readline.strip.to_sym
   end
 
@@ -74,7 +74,9 @@ class CLIPlayerCharacter < PlayerCharacter
   end
 
   def who_to_attack(scenario)
-    others = scenario[:others]
+    others = scenario[:others].reject(&:dead?)
+    return others.first if others.size == 1
+
     print "Attack Who? #{others.collect &:name}: "
     name = STDIN.readline.strip
 
