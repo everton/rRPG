@@ -15,3 +15,11 @@ task :clean do
 end
 
 task :test => [:clean]
+
+task :stats => :clean do
+  tloc  = `find ./test/ -name \\*.rb -exec cat {} \\; |wc -l`.to_i
+  lloc  = `find ./lib   -name \\*.rb -exec cat {} \\; |wc -l`.to_i
+  ratio = tloc.to_f / lloc
+
+  puts "Code LOC: #{lloc}\tTest LOC: #{tloc}\tCode to Test Ratio: 1:%.2f" % ratio
+end
