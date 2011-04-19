@@ -16,7 +16,7 @@ class RunGameTurnTest < GameTestCase
   def test_call_before_turn_start_callback_on_all_characters
     @game.run_a_turn
     @game.characters.each do |char|
-      assert_action_called(:before_turn_start, char)
+      assert_action_called(:turn_start!, char)
     end
   end
 

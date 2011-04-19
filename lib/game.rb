@@ -25,7 +25,7 @@ class Game
 
   def run_a_turn
     @characters.each do |c|
-      c.before_turn_start
+      c.turn_start!
 
       world = scenario_for(c)
       action = c.action?(world) until know_actions.include? action
