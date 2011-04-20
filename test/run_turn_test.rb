@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-class RunGameTurnTest < GameTestCase
+class RunTurnTest < GameTestCase
   def setup
     @game   = Game.new :dimensions => [5, 5]
 
