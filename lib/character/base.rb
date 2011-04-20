@@ -1,20 +1,24 @@
 #-*- coding: utf-8 -*-
 
-require_relative 'turn_callbacks'
-
 module Character
   class Base
-    attr_accessor :name, :x, :y, :ht, :st
+    attr_accessor :name, :x, :y, :ht, :max_ht, :st
 
     include TurnCallback::BeforeStart
+    include InitCallback::AfterInit
+
+    include Character::Modules
 
     def initialize(name = nil, options = {})
       @name = name || self.to_s
 
-      @x  = options[:x ] || 0
-      @y  = options[:y ] || 0
-      @ht = options[:ht] || 10
-      @st = options[:st] || 2.d6
+      @x      = options[:x     ] || 0
+      @y      = options[:y     ] || 0
+      @ht     = options[:ht    ] || 10
+      @st     = options[:st    ] || 2.d6
+      @max_ht = options[:max_ht] || @ht
+
+      invoke_after_init_callbacks!
     end
 
     def turn_start!
