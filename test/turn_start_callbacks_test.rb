@@ -3,28 +3,28 @@
 require 'test_helper'
 
 class BeforeTurnStartCallbacksTest < GameTestCase
-  def test_before_turn_start_without_callbacks_registered
+  def test_without_callbacks_registered
     char = CharacterWithoutCallbacks.new
     char.turn_start!
 
-    assert_equal nil, char.callback_calls
+    refute char.callback_calls
   end
 
-  def test_before_turn_start_callback
+  def test_turn_start_should_calls_callback
     char = CharacterWithCallbacks.new
     char.turn_start!
 
     assert_equal 2, char.callback_calls
   end
 
-  def test_before_turn_start_callbacks_should_be_called_once
+  def test_callbacks_should_be_called_once
     char = CharacterWithRepeatedCallbacks.new
     char.turn_start!
 
     assert_equal 2, char.callback_calls
   end
 
-  def test_before_turn_start_callbacks_on_objects
+  def test_instances_callbacks
     magneto   = CharacterWithCallbacks.new
     wolverine = CharacterWithCallbacks.new
 
@@ -47,8 +47,30 @@ class BeforeTurnStartCallbacksTest < GameTestCase
            'ObjectCallback not called on before_turn_start')
   end
 
+  def test_turn_start_order
+    char = CharacterWithoutCallbacks.new
+
+    def char.callback1
+      @called_callbacks ||= []
+      @called_callbacks << '1st'
+    end
+
+    def char.callback2
+      @called_callbacks ||= []
+      @called_callbacks << '2nd'
+    end
+
+    char.instance_variable_set("@before_turn_start_callbacks",
+                               ['callback1', :callback2])
+
+    char.turn_start!
+
+    assert_equal(char.instance_variable_get("@called_callbacks"),
+                 ['1st', '2nd'])
+  end
+
   private
-  class CharacterWithoutCallbacks < Character
+  class CharacterWithoutCallbacks < Character::Base
     attr_accessor :callback_calls
   end
 

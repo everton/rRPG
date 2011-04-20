@@ -7,13 +7,13 @@ class DicesTest < GameTestCase
     mock_rand_with! 2
 
     @dices = 3.d6
-
-    # => 9 because rand returning starts in 0 (zero)
-    # so 2 in mock extends for 3...
     @expected = 9
+
+    # => 9 because #rand returning starts in 0 (zero)
+    # so 2 in rand extends for 3 in dices...
   end
 
-  def test_return_of_dices
+  def test_how_many_dices_you_have
     assert_equal 3, 3.d6.size
     assert_equal 4, 4.d6.size
   end
