@@ -1,10 +1,13 @@
 #-*- coding: utf-8 -*-
 
-require 'additional_tools'
-require 'minitest/autorun'
+require_relative 'additional_tools' # try bundler, simplecov, etc
+
+require_relative 'support/mocked_character'
+require_relative 'support/stub'
 
 require 'game'
 
+require 'minitest/autorun'
 class GameTestCase < MiniTest::Unit::TestCase
   include Directions
 
@@ -44,41 +47,5 @@ class GameTestCase < MiniTest::Unit::TestCase
     Kernel.module_eval do
       alias rand original_rand
     end
-  end
-end
-
-Object.class_eval do
-  def stub(method_name, options = {}, &block)
-    proc = block || Proc.new do
-      options[:return]
-    end
-
-    if self.is_a? Class
-      define_method method_name, &proc
-    else
-      define_singleton_method method_name, &proc
-    end
-  end
-end
-
-class MockedCharacter
-  attr_accessor :called_actions, :name
-
-  def initialize(name)
-    @name, @called_actions = name, Hash.new(0)
-  end
-
-  def method_missing(sym, *args, &block)
-    @called_actions[sym] += 1
-  end
-
-  def action?(scenario = {})
-    @scenario = scenario
-    @called_actions[:action?] += 1
-    :full_attack if @called_actions[:action?] > 1
-  end
-
-  def dead?
-    false
   end
 end
