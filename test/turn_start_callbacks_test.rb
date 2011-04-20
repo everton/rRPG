@@ -2,31 +2,31 @@
 
 require 'test_helper'
 
-class BeforeTurnStartCallbacksTest < GameTestCase
+class TurnStartCallbacksTest < GameTestCase
   def test_without_callbacks_registered
-    char = CharacterWithoutCallbacks.new
+    char = CharacterWithoutCallbacks.new 'WithoutTurnStart'
     char.turn_start!
 
     refute char.callback_calls
   end
 
   def test_turn_start_should_calls_callback
-    char = CharacterWithCallbacks.new
+    char = CharacterWithCallbacks.new 'WithTurnStart'
     char.turn_start!
 
     assert_equal 2, char.callback_calls
   end
 
   def test_callbacks_should_be_called_once
-    char = CharacterWithRepeatedCallbacks.new
+    char = CharacterWithRepeatedCallbacks.new 'WithRepeatedTurnStart'
     char.turn_start!
 
     assert_equal 2, char.callback_calls
   end
 
   def test_instances_callbacks
-    magneto   = CharacterWithCallbacks.new
-    wolverine = CharacterWithCallbacks.new
+    magneto   = CharacterWithCallbacks.new 'WithTurnStart1'
+    wolverine = CharacterWithCallbacks.new 'WithTurnStart2'
 
     def wolverine.regenerate
       @callback_calls ||= 0
@@ -48,7 +48,7 @@ class BeforeTurnStartCallbacksTest < GameTestCase
   end
 
   def test_turn_start_order
-    char = CharacterWithoutCallbacks.new
+    char = CharacterWithoutCallbacks.new 'WithoutTurnStart'
 
     def char.callback1
       @called_callbacks ||= []

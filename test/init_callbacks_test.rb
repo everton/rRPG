@@ -4,23 +4,23 @@ require 'test_helper'
 
 class InitCallbacksTest < GameTestCase
   def test_without_callbacks_registered
-    char = CharacterWithoutInitCallbacks.new
+    char = CharacterWithoutInitCallbacks.new 'WithoutInit'
     refute char.callback_calls
   end
 
   def test_with_init_callback
-    char = CharacterWithInitCallbacks.new
+    char = CharacterWithInitCallbacks.new 'WithInit'
     assert_equal 2, char.callback_calls
   end
 
   def test_callbacks_should_be_called_once
-    char = CharacterWithRepeatedInitCallbacks.new
+    char = CharacterWithRepeatedInitCallbacks.new 'WithoutRepeatedInit'
     assert_equal 2, char.callback_calls
   end
 
   def test_instances_callbacks
-    commoner = CharacterWithInitCallbacks.new
-    warrior  = CharacterWithInitCallbacks.new
+    commoner = CharacterWithInitCallbacks.new 'WithInit1'
+    warrior  = CharacterWithInitCallbacks.new 'WithInit2'
 
     def warrior.take_a_sword
       @callback_calls ||= 0
@@ -37,28 +37,6 @@ class InitCallbacksTest < GameTestCase
     assert(warrior.instance_variable_get("@sword_taked"),
            'ObjectCallback not called on after_init')
   end
-
-  # def test_turn_start_order
-  #   char = CharacterWithoutCallbacks.new
-
-  #   def char.callback1
-  #     @called_callbacks ||= []
-  #     @called_callbacks << '1st'
-  #   end
-
-  #   def char.callback2
-  #     @called_callbacks ||= []
-  #     @called_callbacks << '2nd'
-  #   end
-
-  #   char.instance_variable_set("@before_turn_start_callbacks",
-  #                              ['callback1', :callback2])
-
-  #   char.turn_start!
-
-  #   assert_equal(char.instance_variable_get("@called_callbacks"),
-  #                ['1st', '2nd'])
-  # end
 
   private
   class CharacterWithoutInitCallbacks < Character::Base

@@ -10,13 +10,13 @@ class GeneralCharacterTest < GameTestCase
   end
 
   def test_character_default_initialization
-    @unamed = Character::Base.new
-    assert_equal @unamed.to_s, @unamed.name
+    @john = Character::Base.new 'John'
+    assert_equal 'John', @john.name
 
-    assert_equal 10,   @unamed.ht
-    assert_equal 2.d6, @unamed.st
+    assert_equal 10,   @john.ht
+    assert_equal 2.d6, @john.st
 
-    assert_on_position(@unamed, 0, 0)
+    assert_on_position(@john, 0, 0)
   end
 
   def test_character_parameterized_initialization

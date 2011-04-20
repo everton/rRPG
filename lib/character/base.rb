@@ -9,9 +9,8 @@ module Character
 
     include Character::Modules
 
-    def initialize(name = nil, options = {})
-      @name = name || self.to_s
-
+    def initialize(name, options = {})
+      @name   = name
       @x      = options[:x     ] || 0
       @y      = options[:y     ] || 0
       @ht     = options[:ht    ] || 10
