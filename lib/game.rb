@@ -4,13 +4,11 @@ require_relative 'support'
 require_relative 'character'
 
 class Game
-  attr_accessor :characters, :limits
+  attr_accessor :characters, :dimensions
 
   def initialize(options = {})
     @characters = []
     @dimensions = options[:dimensions] || [10, 10]
-    @limits     = [@dimensions.first - 1,
-                   @dimensions.last  - 1]
   end
 
   def run!
@@ -52,6 +50,9 @@ class Game
 
   def scenario_for(character)
     others = @characters.select{|c| c != character }
-    {:others => others, :tl => [0, 0], :br => @limits}
+    {
+      :others => others, :tl => [0, 0],
+      :br => [@dimensions.first - 1, @dimensions.last - 1]
+    }
   end
 end

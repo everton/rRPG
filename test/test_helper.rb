@@ -20,8 +20,10 @@ class GameTestCase < MiniTest::Unit::TestCase
   def assert_correct_scenario_on(char, game = @game)
     others = game.characters.reject{|c| c == char }
 
-    assert_equal({others: others, tl: [0, 0], br: game.limits},
-                 char.instance_variable_get("@scenario"))
+    expected = {others: others, tl: [0, 0],
+      br: [game.dimensions.first - 1, game.dimensions.last - 1]
+    }
+    assert_equal(expected, char.instance_variable_get("@scenario"))
   end
 
   def assert_on_position(char, x, y)
