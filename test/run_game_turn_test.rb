@@ -51,11 +51,4 @@ class RunGameTurnTest < GameTestCase
 
     refute @game.run_a_turn, ':quit action ignored'
   end
-
-  # TODO: move know_actions to character, this should not be
-  #       responsability of Game class!
-  def test_know_action_types
-    assert_equal([:quit, :move, :full_attack, :move_and_attack],
-                 @game.know_actions)
-  end
 end

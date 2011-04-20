@@ -9,6 +9,10 @@ class MockedCharacter
     @called_actions[sym] += 1
   end
 
+  def respond_to?(sym)
+    true
+  end
+
   def action?(scenario = {})
     @scenario = scenario
     @called_actions[:action?] += 1

@@ -23,6 +23,10 @@ module Character
       end
     end
 
+    def quit
+      # TODO: treat quit action from character perspective
+    end
+
     def goto(x, y, displacement)
       return if x == @x and y == @y
 

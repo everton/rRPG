@@ -13,10 +13,6 @@ class Game
                    @dimensions.last  - 1]
   end
 
-  def know_actions
-    [:quit, :move, :full_attack, :move_and_attack]
-  end
-
   def run!
     raise 'EmptyCharactersList' if @characters.empty?
 
@@ -31,7 +27,9 @@ class Game
       c.turn_start!
 
       world = scenario_for(c)
-      action = c.action?(world) until know_actions.include? action
+
+      action = c.action?(world) until action and
+        c.respond_to? action
 
       return nil if action == :quit
 
