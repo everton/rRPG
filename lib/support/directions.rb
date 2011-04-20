@@ -1,33 +1,33 @@
 module Directions
-  def north(x = @x, y = @y)
-    [x, y - 1]
+  def north
+    [@x, @y - 1]
   end
 
-  def northeast(x = @x, y = @y)
-    [x + 1, y + 1]
+  def northeast
+    [@x + 1, @y - 1]
   end
 
-  def east(x = @x, y = @y)
-    [x + 1, y]
+  def east
+    [@x + 1, @y]
   end
 
-  def southeast(x = @x, y = @y)
-    [x + 1, y + 1]
+  def southeast
+    [@x + 1, @y + 1]
   end
 
-  def south(x = @x, y = @y)
-    [x, y + 1]
+  def south
+    [@x, @y + 1]
   end
 
-  def southwest(x = @x, y = @y)
-    [x - 1, y -1]
+  def southwest
+    [@x - 1, @y + 1]
   end
 
-  def west(x = @x, y = @y)
-    [x - 1, y]
+  def west
+    [@x - 1, @y]
   end
 
-  def northwest(x = @x, y = @y)
-    [x - 1, y - 1]
+  def northwest
+    [@x - 1, @y - 1]
   end
 end

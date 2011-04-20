@@ -3,6 +3,8 @@
 require 'test_helper'
 
 class CharacterMovimentsTest < GameTestCase
+  include Directions
+
   def setup
     # Scully never was where she is supposed to be!
     @x, @y = 5, 5

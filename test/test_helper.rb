@@ -9,8 +9,6 @@ require 'game'
 
 require 'minitest/autorun'
 class GameTestCase < MiniTest::Unit::TestCase
-  include Directions
-
   def assert_action_called(action, char, times = 1)
     calls = char.called_actions[action]
     error = "#{char.name}#action? invoked #{calls} times."
