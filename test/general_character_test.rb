@@ -28,6 +28,14 @@ class GeneralCharacterTest < GameTestCase
     assert_on_position(@char, 5, 5)
   end
 
+  def test_max_ht_registered
+    @char.ht = 5
+    assert_equal(12, @char.max_ht)
+
+    @char2 = Character::Base.new('Wolverine', :max_ht => 15)
+    assert_equal(15, @char2.max_ht)
+  end
+
   def test_full_displacement
     assert_equal 2 + (12 / 2), @char.full_displacement
   end
