@@ -4,7 +4,7 @@ require_relative '../../test_helper'
 
 class RegenerationTest < GameTestCase
   def setup
-    @wolverine = Character::Base.new :ht => 10
+    @wolverine = Character::Base.new 'Wolverine', :ht => 10
     @wolverine.have :regeneration
 
     @wolverine.ht = 5
