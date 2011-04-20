@@ -1,5 +1,8 @@
 #-*- coding: utf-8 -*-
 
+require_relative 'support'
+require_relative 'character'
+
 class Game
   attr_accessor :characters, :limits
 

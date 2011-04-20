@@ -3,12 +3,8 @@
 
 $: << './lib'
 
-require 'support'
 require 'game'
 require 'character'
-require 'player_character'
-require 'cli_player_character'
-require 'non_player_character'
 
 @game   = Game.new dimensions: [20, 20]
 

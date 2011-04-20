@@ -3,11 +3,7 @@
 require 'additional_tools'
 require 'minitest/autorun'
 
-require 'support'
 require 'game'
-require 'character'
-require 'player_character'
-require 'non_player_character'
 
 class GameTestCase < MiniTest::Unit::TestCase
   include Directions

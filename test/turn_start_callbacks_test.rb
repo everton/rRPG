@@ -70,7 +70,7 @@ class BeforeTurnStartCallbacksTest < GameTestCase
   end
 
   private
-  class CharacterWithoutCallbacks < Character
+  class CharacterWithoutCallbacks < Character::Base
     attr_accessor :callback_calls
   end
 

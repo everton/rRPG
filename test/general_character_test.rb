@@ -4,13 +4,13 @@ require 'test_helper'
 
 class GeneralCharacterTest < GameTestCase
   def setup
-    @char = Character.new('Fox Mulder',
-                          :x  => 5,  :y  => 5,
-                          :ht => 12, :st => 3.d6)
+    @char = Character::Base.new('Fox Mulder',
+                                :x  => 5,  :y  => 5,
+                                :ht => 12, :st => 3.d6)
   end
 
   def test_character_default_initialization
-    @unamed = Character.new
+    @unamed = Character::Base.new
     assert_equal @unamed.to_s, @unamed.name
 
     assert_equal 10,   @unamed.ht

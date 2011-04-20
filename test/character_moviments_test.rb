@@ -6,7 +6,8 @@ class CharacterMovimentsTest < GameTestCase
   def setup
     # Scully never was where she is supposed to be!
     @x, @y = 5, 5
-    @char  = Character.new 'Dana Scully', :x  => @x,  :y  => @y
+    @char  = Character::Base.new('Dana Scully',
+                                 :x  => @x,  :y  => @y)
   end
 
   def test_void_moviment
