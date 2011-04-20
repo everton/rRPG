@@ -1,20 +1,8 @@
 #-*- coding: utf-8 -*-
 
-require 'simplecov'
-SimpleCov.start do
-  add_filter "/test/"
-  add_filter "/vendor/"
-  add_group "Support", "/support"
-end
-
+require 'additional_tools'
 require 'minitest/autorun'
-ENV['RACK_ENV'] = 'test'
 
-require 'bundler'
-Bundler.setup
-Bundler.require(:default, :test)
-
-require 'minitest/autorun'
 require 'support'
 require 'game'
 require 'character'
