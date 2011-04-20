@@ -5,6 +5,7 @@ $: << './lib'
 
 require 'game'
 require 'character'
+require 'character/cli_player_character'
 
 @game   = Game.new dimensions: [20, 20]
 
