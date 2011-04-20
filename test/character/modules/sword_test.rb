@@ -9,15 +9,37 @@ class SwordTest < GameTestCase
   end
 
   def test_sword_add_modifier
-    # if rand(n) => 3 then d6 becames 4
-    mock_rand_with! 3 do
-      assert_equal(3.d6, @warrior.st)
-      assert_equal((3.d6 + @basic_sword_modifier).roll,
-                   @warrior.full_damage)
+    assert_correct_st_and_damage(@warrior, 3.d6,
+                                 @basic_sword_modifier)
 
-      # @warrior.st = 2.d6
-      # expected = (2.d6 + @basic_sword_modifier).roll
-      # assert_equal expected, @warrior.full_damage
+    @warrior.st = 2.d6
+    assert_correct_st_and_damage(@warrior, 2.d6,
+                                 @basic_sword_modifier)
+  end
+
+  def test_sword_with_special_default_modifier
+    @warrior.have :sword, :modifier => 5
+    assert_correct_st_and_damage(@warrior, 3.d6, 5)
+  end
+
+  def test_class_level_regeneration
+    default_sword_modifier = 2
+    assert_correct_st_and_damage(Warrior.new('Conan', st: 4.d6),
+                                 4.d6, default_sword_modifier)
+  end
+
+  private
+  def assert_correct_st_and_damage(char, expected_st,
+                                   expected_modifier)
+
+    mock_rand_with! 3 do
+      assert_equal(expected_st, char.st)
+      expected_full_damage = (expected_st + expected_modifier).roll
+      assert_equal(expected_full_damage, char.full_damage)
     end
+  end
+
+  class Warrior < Character::Base
+    have :sword, :modifier => 2
   end
 end

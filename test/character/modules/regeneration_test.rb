@@ -41,6 +41,7 @@ class RegenerationTest < GameTestCase
     assert_equal 50, @beholder.ht
   end
 
+  private
   class Beholder < Character::Base
     have :regeneration, :healing_factor => 5
   end
