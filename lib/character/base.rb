@@ -1,8 +1,12 @@
 #-*- coding: utf-8 -*-
 
+require_relative 'turn_callbacks'
+
 module Character
   class Base
     attr_accessor :name, :x, :y, :ht, :st
+
+    include TurnCallback::BeforeStart
 
     def initialize(name = nil, options = {})
       @name = name || self.to_s
@@ -11,39 +15,6 @@ module Character
       @y  = options[:y ] || 0
       @ht = options[:ht] || 10
       @st = options[:st] || 2.d6
-    end
-
-    class << self
-      def before_turn_start(*callbacks)
-        @before_turn_start_callbacks ||= []
-        callbacks.each do |callback|
-          unless before_turn_start_callbacks.include? callback
-            @before_turn_start_callbacks << callback
-          end
-        end
-      end
-
-      def ancestor_before_turn_start_callbacks
-        return [] unless superclass.respond_to? :before_turn_start_callbacks
-
-        superclass.before_turn_start_callbacks
-      end
-
-      def before_turn_start_callbacks
-        [*@before_turn_start_callbacks] +
-          ancestor_before_turn_start_callbacks
-      end
-    end
-
-    def before_turn_start(*callbacks)
-      @before_turn_start_callbacks ||= []
-      @before_turn_start_callbacks  += callbacks
-      @before_turn_start_callbacks.uniq!
-    end
-
-    def before_turn_start_callbacks
-      [*@before_turn_start_callbacks] +
-        self.class.before_turn_start_callbacks
     end
 
     def turn_start!
