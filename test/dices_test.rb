@@ -39,6 +39,12 @@ class DicesTest < GameTestCase
     assert_equal 3.d6 + 7, dices
   end
 
+  def test_dices_equality
+    assert_equal 3.d6, 3.d6
+    assert_equal 3.d6 + 7, 3.d6 + 7
+    refute_equal 3.d6 - 5, 3.d6 + 7
+  end
+
   def teardown
     unmock_rand!
   end
