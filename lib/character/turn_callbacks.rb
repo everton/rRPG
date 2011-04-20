@@ -2,17 +2,20 @@ module TurnCallback
   module BeforeStart
     def self.included(base)
       base.send :extend, ClassMethods
+      base.send :include, InstanceMethods
     end
 
-    def before_turn_start(*callbacks)
-      @before_turn_start_callbacks ||= []
-      @before_turn_start_callbacks  += callbacks
-      @before_turn_start_callbacks.uniq!
-    end
+    module InstanceMethods
+      def before_turn_start(*callbacks)
+        @before_turn_start_callbacks ||= []
+        @before_turn_start_callbacks  += callbacks
+        @before_turn_start_callbacks.uniq!
+      end
 
-    def before_turn_start_callbacks
-      [*@before_turn_start_callbacks] +
-        self.class.before_turn_start_callbacks
+      def before_turn_start_callbacks
+        [*@before_turn_start_callbacks] +
+          self.class.before_turn_start_callbacks
+      end
     end
 
     module ClassMethods

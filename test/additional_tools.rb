@@ -14,6 +14,7 @@ begin
     add_filter "/test/"
     add_filter "/vendor/"
     add_group "Support", "/support"
+    add_group "Character Modules", "/character/modules"
   end
 rescue LoadError => e
   puts "\nCoverage is not available:\t#{e}"

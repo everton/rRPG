@@ -10,13 +10,13 @@ class GeneralCharacterTest < GameTestCase
   end
 
   def test_character_default_initialization
-    @unamed = Character::Base.new
-    assert_equal @unamed.to_s, @unamed.name
+    @john = Character::Base.new 'John'
+    assert_equal 'John', @john.name
 
-    assert_equal 10,   @unamed.ht
-    assert_equal 2.d6, @unamed.st
+    assert_equal 10,   @john.ht
+    assert_equal 2.d6, @john.st
 
-    assert_on_position(@unamed, 0, 0)
+    assert_on_position(@john, 0, 0)
   end
 
   def test_character_parameterized_initialization
@@ -26,6 +26,14 @@ class GeneralCharacterTest < GameTestCase
     assert_equal 3.d6, @char.st
 
     assert_on_position(@char, 5, 5)
+  end
+
+  def test_max_ht_registered
+    @char.ht = 5
+    assert_equal(12, @char.max_ht)
+
+    @char2 = Character::Base.new('Wolverine', :max_ht => 15)
+    assert_equal(15, @char2.max_ht)
   end
 
   def test_full_displacement
