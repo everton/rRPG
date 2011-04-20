@@ -45,6 +45,12 @@ class DicesTest < GameTestCase
     refute_equal 3.d6 - 5, 3.d6 + 7
   end
 
+  def test_dices_insect
+    assert_equal '3d6', 3.d6.inspect
+    assert_equal '3d6+7', (3.d6 + 7).inspect
+    assert_equal '3d6-5', (3.d6 - 5).inspect
+  end
+
   def teardown
     unmock_rand!
   end
