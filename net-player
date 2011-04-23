@@ -1,0 +1,25 @@
+#!/usr/bin/env ruby
+#-*- coding: utf-8 -*-
+
+$: << './lib'
+
+require 'game'
+require 'character'
+require 'character/cli_player_character'
+
+require 'drb/drb'
+URI = "druby://0.0.0.0:8787"
+
+DRb.start_service
+
+@game = DRbObject.new_with_uri(URI)
+
+@player = CLIPlayerCharacter.new "Everton", ht: 12, st: 3.d6
+
+@player.have :regeneration
+@player.x, @player.y =  5,  7
+
+@game.characters << @player # I have the initiative
+
+winner = @game.run!
+puts "Winner: #{winner.inspect}"

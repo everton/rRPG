@@ -37,14 +37,14 @@ class Game
 
   private
   def player_character
-    @player_character ||= @characters.select { |char|
-      char.is_a? PlayerCharacter
+    @player_character ||= @characters.reject { |char|
+      char.is_a? NonPlayerCharacter
     }.first
   end
 
   def computer_characters
-    @computer_characters ||= @characters.reject { |char|
-      char.is_a? PlayerCharacter
+    @computer_characters ||= @characters.select { |char|
+      char.is_a? NonPlayerCharacter
     }
   end
 

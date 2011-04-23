@@ -1,0 +1,27 @@
+#!/usr/bin/env ruby
+#-*- coding: utf-8 -*-
+
+$: << './lib'
+
+require 'game'
+require 'character'
+require 'character/cli_player_character'
+
+require 'drb/drb'
+URI = "druby://0.0.0.0:8787"
+
+@game   = Game.new dimensions: [20, 20]
+
+@enemy1 = NonPlayerCharacter.new "Orc 1"
+@enemy2 = NonPlayerCharacter.new "Orc 2"
+@game.characters << @enemy1
+@game.characters << @enemy2
+@enemy1.x, @enemy1.y = 10, 15
+@enemy2.x, @enemy2.y = 15, 12
+
+
+# DRb stufs
+$SAFE = 1   # disable eval() and friends
+DRb.start_service(URI, @game)
+# Wait for the drb server thread to finish before exiting.
+DRb.thread.join
