@@ -19,6 +19,7 @@ class DicesTest < GameTestCase
   end
 
   def test_roll
+    # TODO: dice is plural for die...
     assert_equal @expected, @dices.roll
   end
 
@@ -45,7 +46,7 @@ class DicesTest < GameTestCase
     refute_equal 3.d6 - 5, 3.d6 + 7
   end
 
-  def test_dices_insect
+  def test_dices_inspect
     assert_equal '3d6', 3.d6.inspect
     assert_equal '3d6+7', (3.d6 + 7).inspect
     assert_equal '3d6-5', (3.d6 - 5).inspect
