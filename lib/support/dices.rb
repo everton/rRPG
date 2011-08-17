@@ -14,7 +14,7 @@ class Fixnum
         end
 
         def modifier
-          @modifier
+          @modifier ||= 0
         end
 
         def ==(other)
@@ -27,7 +27,7 @@ class Fixnum
         end
 
         def roll
-          self.inject(@modifier || 0){|s, e| s + rand(e) + 1 }
+          self.inject(modifier){|s, e| s + rand(e) + 1 }
         end
       end
     end
