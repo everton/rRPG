@@ -5,7 +5,7 @@ require 'test_helper'
 class RunGameTest < GameTestCase
   def setup
     @game = Game.new :dimensions => [5, 5]
-    @game.stub :run_a_turn do
+    @game.fake :run_a_turn do
       @turns ||= 0
       @turns  += 1
 
@@ -32,12 +32,14 @@ class RunGameTest < GameTestCase
   end
 
   def test_player_is_winner_identification
-    @enemy.stub :dead?, return: true
-    assert_equal :player, @game.run!
+    @enemy.stub :dead?, true do
+      assert_equal :player, @game.run!
+    end
   end
 
   def test_cpu_is_winner_identification
-    @player.stub :dead?, return: true
-    assert_equal :cpu, @game.run!
+    @player.stub :dead?, true do
+      assert_equal :cpu, @game.run!
+    end
   end
 end

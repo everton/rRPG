@@ -45,11 +45,8 @@ class RunTurnTest < GameTestCase
   end
 
   def test_stop_game_if_quit_action_called
-    @player.stub :action? do |scenario|
-      :quit
+    @player.stub(:action?, :quit) do
+      refute @game.run_a_turn, ':quit action ignored'
     end
-    # @player.stub :action?, return: :quit
-
-    refute @game.run_a_turn, ':quit action ignored'
   end
 end

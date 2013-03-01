@@ -8,9 +8,9 @@ class IABasicActionsTest < GameTestCase
     @enemy  = NonPlayerCharacter.new 'CPU01'
     @enemy.x, @enemy.y = 3, 3
 
-    @enemy.stub(:full_damage,     :return => 3)
-    @enemy.stub(:reduced_damage,  :return => 2)
-    @enemy.stub(:attack_success?, :return => true)
+    @enemy.fake(:full_damage,     :return => 3)
+    @enemy.fake(:reduced_damage,  :return => 2)
+    @enemy.fake(:attack_success?, :return => true)
 
     @scenario = {
       :others => [@player],
@@ -41,10 +41,10 @@ class IABasicActionsTest < GameTestCase
   end
 
   def test_should_not_retrieve_others_ht_if_not_successful
-    @enemy.stub(:attack_success?, :return => false)
-
-    attack_when_player_in(2, 4)
-    assert_equal 10, @player.ht
+    @enemy.stub(:attack_success?, false) do
+      attack_when_player_in(2, 4)
+      assert_equal 10, @player.ht
+    end
   end
 
   def test_dead

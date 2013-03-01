@@ -1,5 +1,5 @@
 Object.class_eval do
-  def stub(method_name, options = {}, &block)
+  def fake(method_name, options = {}, &block)
     proc = block || Proc.new do
       options[:return]
     end
