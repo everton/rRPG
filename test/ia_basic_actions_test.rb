@@ -41,7 +41,7 @@ class IABasicActionsTest < GameTestCase
   end
 
   def test_should_not_retrieve_others_ht_if_not_successful
-    @enemy.stub(:attack_success?, false) do
+    @enemy.fake(:attack_success?, false) do
       attack_when_player_in(2, 4)
       assert_equal 10, @player.ht
     end

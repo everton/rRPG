@@ -32,13 +32,13 @@ class RunGameTest < GameTestCase
   end
 
   def test_player_is_winner_identification
-    @enemy.stub :dead?, true do
+    @enemy.fake :dead?, true do
       assert_equal :player, @game.run!
     end
   end
 
   def test_cpu_is_winner_identification
-    @player.stub :dead?, true do
+    @player.fake :dead?, true do
       assert_equal :cpu, @game.run!
     end
   end
