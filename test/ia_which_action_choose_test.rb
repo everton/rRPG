@@ -28,7 +28,10 @@ class IAWhichActionChooseTest < GameTestCase
   private
   def assert_action_for_player_at(action, px, py)
     player = PlayerCharacter.new 'Player', x: px, y: py
-    world  = { :others => [player], :tl => [0, 0], :br => [10, 10]}
+    world  = {
+      characters: [player, @enemy],
+      tl: [0, 0], br: [10, 10]
+    }
 
     assert_equal action, @enemy.action?(world)
   end

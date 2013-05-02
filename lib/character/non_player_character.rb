@@ -31,7 +31,7 @@ class NonPlayerCharacter < Character::Base
 
   private
   def player_character(scenario)
-    scenario[:others].each do |char|
+    scenario[:characters].each do |char|
       return char if char.is_a? PlayerCharacter
     end
   end
