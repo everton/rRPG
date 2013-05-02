@@ -5,7 +5,6 @@ require_relative 'additional_tools' # try bundler, simplecov, etc
 require 'minitest/autorun'
 
 require_relative 'support/mocked_character'
-require_relative 'support/fake'
 
 require 'game'
 
