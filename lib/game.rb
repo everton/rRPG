@@ -22,12 +22,16 @@ class Game
 
   def run_a_turn
     @characters.each do |c|
+      next if c.dead?
+
       c.turn_start!
+
+      next if c.dead?
 
       world = scenario_for(c)
 
       action = c.action?(world) until action and
-        c.respond_to? action
+        c.respond_to?(action) or action == :quit
 
       return nil if action == :quit
 
@@ -49,10 +53,7 @@ class Game
   end
 
   def scenario_for(character)
-    others = @characters.select{|c| c != character }
-    {
-      :others => others, :tl => [0, 0],
-      :br => [@dimensions.first - 1, @dimensions.last - 1]
-    }
+    { characters: @characters, tl: [0, 0],
+      br: [@dimensions.first - 1, @dimensions.last - 1] }
   end
 end
