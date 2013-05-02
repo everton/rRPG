@@ -1,25 +1,22 @@
-class MockedCharacter
-  attr_accessor :called_actions, :name
+class MockedCharacter < MiniTest::Mock
+  alias send __send__
 
-  def initialize(name)
-    @name, @called_actions = name, Hash.new(0)
-  end
+  # It allows calls for unexpected methods, but did not interferr with
+  # standard treatment for expected ones. This allow mock object to
+  # act more or less 'as_null_object'
+  # See more about this pattern at wikipedia:
+  #   http://en.wikipedia.org/wiki/Null_object
+  def ignore_unexpected_calls!
+    return if @ignoring_unexpected_calls # do it once!
 
-  def method_missing(sym, *args, &block)
-    @called_actions[sym] += 1
-  end
+    @ignoring_unexpected_calls = true
 
-  def respond_to?(sym)
-    true
-  end
+    def self.method_missing(sym, *args)
+      super if @expected_calls.has_key?(sym)
+    end
 
-  def action?(scenario = {})
-    @scenario = scenario
-    @called_actions[:action?] += 1
-    :full_attack if @called_actions[:action?] > 1
-  end
-
-  def dead?
-    false
+    def self.respond_to?(sym)
+      true
+    end
   end
 end
