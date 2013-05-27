@@ -33,6 +33,6 @@ class IAWhichActionChooseTest < GameTestCase
       tl: [0, 0], br: [10, 10]
     }
 
-    assert_equal action, @enemy.action?(world)
+    assert_equal action, @enemy.action(world)
   end
 end

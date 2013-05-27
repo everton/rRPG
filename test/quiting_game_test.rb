@@ -20,7 +20,7 @@ class QuitingGameTest < GameTestCase
   end
 
   def test_game_turn_just_return_null_when_quiting_to_stop_game_loop
-    @player.expect :action?, :quit, [Hash]
+    @player.expect :action, :quit, [Hash]
 
     refute @game.run_a_turn, ':quit action ignored'
 
@@ -36,8 +36,8 @@ class QuitingGameTest < GameTestCase
     @enemy1.expect :turn_start!, nil
 
     # The loop will need one action to proceed
-    @player.expect :action?, :pass, [Hash]
-    @enemy1.expect :action?, :pass, [Hash]
+    @player.expect :action, :pass, [Hash]
+    @enemy1.expect :action, :pass, [Hash]
 
     @player.expect :pass, nil, [Hash]
     @enemy1.expect :pass, nil, [Hash]

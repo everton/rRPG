@@ -1,7 +1,7 @@
 #-*- coding: utf-8 -*-
 
 class NonPlayerCharacter < Character::Base
-  def action?(scenario)
+  def action(scenario)
     p = player_character(scenario)
     d = distance_of(p.x, p.y)
 

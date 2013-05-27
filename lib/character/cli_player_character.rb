@@ -1,7 +1,7 @@
 #-*- coding: utf-8 -*-
 
 class CLIPlayerCharacter < PlayerCharacter
-  def action?(scenario)
+  def action(scenario)
     print "\e[H \e[2J"
 
     others = scenario[:characters].select {|c| c != self }

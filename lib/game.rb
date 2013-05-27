@@ -30,7 +30,7 @@ class Game
 
       world = scenario_for(c)
 
-      action = c.action?(world) until action and
+      action = c.action(world) until action and
         c.respond_to?(action) or action == :quit
 
       return nil if action == :quit

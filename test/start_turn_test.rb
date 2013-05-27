@@ -17,12 +17,12 @@ class StartTurnTest < GameTestCase
     @player.expect :dead?, false
     @player.expect :turn_start!, nil
     @player.expect :dead?, false           # #dead? is called twice
-    @player.expect :action?, :pass, [Hash] # need one action to proceed
+    @player.expect :action, :pass, [Hash] # need one action to proceed
 
     @enemy1.expect :dead?, false
     @enemy1.expect :turn_start!, nil
     @enemy1.expect :dead?, false
-    @enemy1.expect :action?, :pass, [Hash]
+    @enemy1.expect :action, :pass, [Hash]
 
     @player.ignore_unexpected_calls!
     @enemy1.ignore_unexpected_calls!
@@ -37,7 +37,7 @@ class StartTurnTest < GameTestCase
     @player.expect :dead?, false
     @player.expect :turn_start!, nil
     @player.expect :dead?, false
-    @player.expect :action?, :pass, [Hash]
+    @player.expect :action, :pass, [Hash]
     @player.ignore_unexpected_calls!
 
     @enemy1.expect :dead?, true
@@ -52,7 +52,7 @@ class StartTurnTest < GameTestCase
     @player.expect :dead?, false
     @player.expect :turn_start!, nil
     @player.expect :dead?, false
-    @player.expect :action?, :pass, [Hash]
+    @player.expect :action, :pass, [Hash]
     @player.ignore_unexpected_calls!
 
     # simulates a poisioned char that face death on turn start
