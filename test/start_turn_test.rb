@@ -14,18 +14,14 @@ class StartTurnTest < GameTestCase
   end
 
   def test_game_notify_all_alive_chars_that_turn_started
-    # #dead? must be called twice, before and other afer #turn_start!
     @player.expect :dead?, false
-    @player.expect :dead?, false
-
-    @enemy1.expect :dead?, false
-    @enemy1.expect :dead?, false
-
     @player.expect :turn_start!, nil
-    @enemy1.expect :turn_start!, nil
+    @player.expect :dead?, false           # #dead? is called twice
+    @player.expect :action?, :pass, [Hash] # need one action to proceed
 
-    # The loop will need one action to proceed
-    @player.expect :action?, :pass, [Hash]
+    @enemy1.expect :dead?, false
+    @enemy1.expect :turn_start!, nil
+    @enemy1.expect :dead?, false
     @enemy1.expect :action?, :pass, [Hash]
 
     @player.ignore_unexpected_calls!
@@ -39,8 +35,8 @@ class StartTurnTest < GameTestCase
 
   def test_game_did_not_asks_nothing_for_dead_chars
     @player.expect :dead?, false
-    @player.expect :dead?, false
     @player.expect :turn_start!, nil
+    @player.expect :dead?, false
     @player.expect :action?, :pass, [Hash]
     @player.ignore_unexpected_calls!
 
@@ -54,8 +50,8 @@ class StartTurnTest < GameTestCase
 
   def test_game_did_not_asks_chars_dead_at_turn_start
     @player.expect :dead?, false
-    @player.expect :dead?, false
     @player.expect :turn_start!, nil
+    @player.expect :dead?, false
     @player.expect :action?, :pass, [Hash]
     @player.ignore_unexpected_calls!
 
