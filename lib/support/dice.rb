@@ -1,8 +1,8 @@
 class Fixnum
   def d6
     # i.e: 3.d6 => [6, 6, 6]
-    ([6] * self).tap do |dices|
-      class << dices
+    ([6] * self).tap do |dice|
+      class << dice
         def +(modifier) # 3.d6 + 2
           @modifier = @modifier.to_i + modifier
           self
