@@ -12,7 +12,7 @@ class Game
   end
 
   def run!
-    raise 'EmptyCharactersList' if @characters.empty?
+    raise 'Empty characters list' if @characters.empty?
 
     return :cpu if player_character.dead?
     return :player if computer_characters.all? &:dead?
