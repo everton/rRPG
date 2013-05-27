@@ -2,6 +2,8 @@
 
 require 'test_helper'
 
+using Dice
+
 class GeneralCharacterTest < GameTestCase
   def setup
     @char = Character::Base.new('Fox Mulder',

@@ -2,6 +2,8 @@
 
 require 'test_helper'
 
+using Dice
+
 class DiceTest < GameTestCase
   def setup
     mock_rand_with! 2

@@ -9,6 +9,8 @@ require 'character/cli_player_character'
 
 game   = Game.new dimensions: [20, 20]
 
+using Dice
+
 player = CLIPlayerCharacter.new "Everton", ht: 12, st: 3.d6
 player.have :regeneration
 

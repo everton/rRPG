@@ -1,5 +1,7 @@
 #-*- coding: utf-8 -*-
 
+using Dice
+
 module Character
   class Base
     attr_accessor :name, :x, :y, :ht, :max_ht, :st
