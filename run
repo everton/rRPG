@@ -1,27 +1,29 @@
 #!/usr/bin/env ruby
 #-*- coding: utf-8 -*-
 
-$: << './lib'
+$LOAD_PATH << './lib'
 
 require 'game'
 require 'character'
 require 'character/cli_player_character'
 
-@game   = Game.new dimensions: [20, 20]
+game   = Game.new dimensions: [20, 20]
 
-@player = CLIPlayerCharacter.new "Everton", ht: 12, st: 3.d6
-@player.have :regeneration
+using Dice
 
-@enemy1 = NonPlayerCharacter.new "Orc 1"
-@enemy2 = NonPlayerCharacter.new "Orc 2"
+player = CLIPlayerCharacter.new "Everton", ht: 12, st: 3.d6
+player.have :regeneration
 
-@player.x, @player.y =  5,  7
-@enemy1.x, @enemy1.y = 10, 15
-@enemy2.x, @enemy2.y = 15, 12
+enemy1 = NonPlayerCharacter.new "Orc 1"
+enemy2 = NonPlayerCharacter.new "Orc 2"
 
-@game.characters << @player # I have the initiative
-@game.characters << @enemy1
-@game.characters << @enemy2
+player.x, player.y =  5,  7
+enemy1.x, enemy1.y = 10, 15
+enemy2.x, enemy2.y = 15, 12
 
-winner = @game.run!
-puts "Winner: #{winner.inspect}"
+game.characters << player # I have the initiative
+game.characters << enemy1
+game.characters << enemy2
+
+winner = game.run!
+puts "Winner: #{winner}"

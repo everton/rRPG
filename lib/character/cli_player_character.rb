@@ -1,10 +1,10 @@
 #-*- coding: utf-8 -*-
 
 class CLIPlayerCharacter < PlayerCharacter
-  def action?(scenario)
+  def action(scenario)
     print "\e[H \e[2J"
 
-    others = scenario[:others]
+    others = scenario[:characters].select {|c| c != self }
     lines, cols = scenario[:br]
     print ' ' * 2
     0.upto(cols) { |col| print "%02d " % col }
@@ -67,7 +67,9 @@ class CLIPlayerCharacter < PlayerCharacter
   end
 
   def who_to_attack(scenario)
-    others = scenario[:others].reject(&:dead?)
+    others = scenario[:characters]
+      .reject{|c| c == self or c.dead? }
+
     return others.first if others.size == 1
 
     print "Attack Who? #{others.collect &:name}: "

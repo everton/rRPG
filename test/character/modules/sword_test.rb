@@ -1,5 +1,7 @@
 require_relative '../../test_helper'
 
+using Dice
+
 class SwordTest < GameTestCase
   def setup
     @warrior = Character::Base.new 'Warrior', :ht => 10, :st => 3.d6

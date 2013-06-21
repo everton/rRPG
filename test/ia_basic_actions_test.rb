@@ -8,12 +8,12 @@ class IABasicActionsTest < GameTestCase
     @enemy  = NonPlayerCharacter.new 'CPU01'
     @enemy.x, @enemy.y = 3, 3
 
-    @enemy.fake(:full_damage,     :return => 3)
-    @enemy.fake(:reduced_damage,  :return => 2)
-    @enemy.fake(:attack_success?, :return => true)
+    @enemy.define_singleton_method(:full_damage    ) { return 3    }
+    @enemy.define_singleton_method(:reduced_damage ) { return 2    }
+    @enemy.define_singleton_method(:attack_success?) { return true }
 
     @scenario = {
-      :others => [@player],
+      :characters => [@player, @enemy],
       :tl => [0, 0], :br => [10, 10]
     }
   end

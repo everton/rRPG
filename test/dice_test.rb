@@ -2,51 +2,53 @@
 
 require 'test_helper'
 
-class DicesTest < GameTestCase
+using Dice
+
+class DiceTest < GameTestCase
   def setup
     mock_rand_with! 2
 
-    @dices = 3.d6
+    @dice = 3.d6
     @expected = 9
 
     # => 9 because #rand returning starts in 0 (zero)
-    # so 2 in rand extends for 3 in dices...
+    # so 2 in rand extends for 3 in dice...
   end
 
-  def test_how_many_dices_you_have
+  def test_how_many_dice_you_have
     assert_equal 3, 3.d6.size
     assert_equal 4, 4.d6.size
   end
 
   def test_roll
     # TODO: dice is plural for die...
-    assert_equal @expected, @dices.roll
+    assert_equal @expected, @dice.roll
   end
 
-  def test_dices_with_modifier
-    @dices += 2
-    assert_equal @expected + 2, @dices.roll
+  def test_dice_with_modifier
+    @dice += 2
+    assert_equal @expected + 2, @dice.roll
   end
 
-  def test_dices_with_negative_modifier
-    @dices -= 2
-    assert_equal @expected - 2, @dices.roll
+  def test_dice_with_negative_modifier
+    @dice -= 2
+    assert_equal @expected - 2, @dice.roll
   end
 
-  def test_dices_modifier_changing
-    dices  = 3.d6 + 2
-    dices += 5
+  def test_dice_modifier_changing
+    dice  = 3.d6 + 2
+    dice += 5
 
-    assert_equal 3.d6 + 7, dices
+    assert_equal 3.d6 + 7, dice
   end
 
-  def test_dices_equality
+  def test_dice_equality
     assert_equal 3.d6, 3.d6
     assert_equal 3.d6 + 7, 3.d6 + 7
     refute_equal 3.d6 - 5, 3.d6 + 7
   end
 
-  def test_dices_inspect
+  def test_dice_inspect
     assert_equal '3d6', 3.d6.inspect
     assert_equal '3d6+7', (3.d6 + 7).inspect
     assert_equal '3d6-5', (3.d6 - 5).inspect

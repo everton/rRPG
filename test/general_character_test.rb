@@ -2,6 +2,8 @@
 
 require 'test_helper'
 
+using Dice
+
 class GeneralCharacterTest < GameTestCase
   def setup
     @char = Character::Base.new('Fox Mulder',
@@ -57,7 +59,7 @@ class GeneralCharacterTest < GameTestCase
 
       @char.ht = 12
       assert(@char.attack_success?,
-             'Should return success if HT == to dices rolling')
+             'Should return success if HT == to dice rolling')
 
       @char.ht = 13
       assert(@char.attack_success?, 'Should detect fail')

@@ -1,7 +1,7 @@
 #-*- coding: utf-8 -*-
 
 class NonPlayerCharacter < Character::Base
-  def action?(scenario)
+  def action(scenario)
     p = player_character(scenario)
     d = distance_of(p.x, p.y)
 
@@ -31,7 +31,7 @@ class NonPlayerCharacter < Character::Base
 
   private
   def player_character(scenario)
-    scenario[:others].each do |char|
+    scenario[:characters].each do |char|
       return char if char.is_a? PlayerCharacter
     end
   end
