@@ -2,19 +2,28 @@ GEM
   remote: http://rubygems.org/
   remote: http://gems.github.com/
   specs:
+    ast (1.1.0)
     flay (1.4.2)
       ruby_parser (~> 2.0)
       sexp_processor (~> 3.0)
     flog (2.5.1)
       ruby_parser (~> 2.0)
       sexp_processor (~> 3.0)
+    parser (2.0.0.beta5)
+      ast (~> 1.0)
+      slop (~> 3.4)
+    rainbow (1.1.4)
     rake (0.9.6)
+    rubocop (0.8.3)
+      parser (= 2.0.0.beta5)
+      rainbow (>= 1.1.4)
     ruby_parser (2.0.6)
       sexp_processor (~> 3.0)
     sexp_processor (3.0.5)
     simplecov (0.4.2)
       simplecov-html (~> 0.4.4)
     simplecov-html (0.4.4)
+    slop (3.4.5)
 
 PLATFORMS
   ruby
@@ -23,4 +32,5 @@ DEPENDENCIES
   flay
   flog
   rake
+  rubocop
   simplecov

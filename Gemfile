@@ -7,4 +7,5 @@ group :test do
   gem 'simplecov'
   gem 'flay'
   gem 'flog'
+  gem 'rubocop'
 end
