@@ -18,7 +18,8 @@ class GeneralCharacterTest < GameTestCase
     assert_equal 10,   @john.ht
     assert_equal 2.d6, @john.st
 
-    assert_on_position(@john, 0, 0)
+    # non positioned chars must be randomly positioned by the game
+    assert_on_position(@john, nil, nil)
   end
 
   def test_character_parameterized_initialization
