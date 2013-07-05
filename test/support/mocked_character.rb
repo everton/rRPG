@@ -1,4 +1,6 @@
 class MockedCharacter < MiniTest::Mock
+  attr_accessor :x, :y
+
   alias send __send__
 
   # It allows calls for unexpected methods, but did not interferr with
