@@ -13,8 +13,8 @@ module Character
 
     def initialize(name, options = {})
       @name   = name
-      @x      = options[:x     ] || 0
-      @y      = options[:y     ] || 0
+      @x      = options[:x     ]
+      @y      = options[:y     ]
       @ht     = options[:ht    ] || 10
       @st     = options[:st    ] || 2.d6
       @max_ht = options[:max_ht] || @ht
