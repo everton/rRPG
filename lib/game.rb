@@ -7,7 +7,7 @@ class Game
   attr_accessor :characters, :dimensions
 
   def initialize(options = {})
-    @characters = []
+    @characters = CharacterList.for_game self
     @dimensions = options[:dimensions] || [10, 10]
   end
 
@@ -55,5 +55,22 @@ class Game
   def scenario_for(character)
     { characters: @characters, tl: [0, 0],
       br: [@dimensions.first - 1, @dimensions.last - 1] }
+  end
+
+  class CharacterList < Array
+    attr_accessor :game
+
+    def self.for_game(game)
+      new.tap do |character_list|
+        character_list.game = game
+      end
+    end
+
+    def <<(char)
+      char.x ||= rand(@game.dimensions.first)
+      char.y ||= rand(@game.dimensions.last )
+
+      super(char)
+    end
   end
 end
