@@ -8,6 +8,20 @@ end
 
 task :default => [:test]
 
+task :new_kids_on_the_block do
+  require 'tempfile'
+  require 'ruby-debug'
+
+  wrapped_source = Tempfile.new('wrapped_source')
+  wrapped_source.puts 'debugger'
+  wrapped_source.write File.read('run')
+  wrapped_source.close
+
+  compiled_source = RubyVM::InstructionSequence
+    .compile_file wrapped_source.path
+  compiled_source.eval
+end
+
 task :clean do
   `rm -rf coverage/*`
   `find ./ -name \\*~ -delete`
