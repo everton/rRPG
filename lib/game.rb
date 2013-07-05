@@ -8,7 +8,7 @@ class Game
 
   def initialize(options = {})
     @characters = CharacterList.for_game self
-    @dimensions = options[:dimensions] || [10, 10]
+    @dimensions = options[:dimensions] || [20, 20]
   end
 
   def run!
