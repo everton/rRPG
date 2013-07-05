@@ -1,27 +1,23 @@
 #!/usr/bin/env ruby
 #-*- coding: utf-8 -*-
 
-$LOAD_PATH << './lib'
-
-require 'game'
-require 'character'
-require 'character/cli_player_character'
-
-game   = Game.new dimensions: [20, 20]
+require_relative 'lib/game'
 
 using Dice
 
-player = CLIPlayerCharacter.new "Everton", ht: 12, st: 3.d6
+player = CLIPlayerCharacter.new 'Everton', ht: 12, st: 3.d6
 player.have :regeneration
 
-enemy1 = NonPlayerCharacter.new "Orc 1"
-enemy2 = NonPlayerCharacter.new "Orc 2"
+enemy1 = NonPlayerCharacter.new 'Orc 1'
+enemy2 = NonPlayerCharacter.new 'Orc 2'
 
+# Why not positionate it randomly?
 player.x, player.y =  5,  7
 enemy1.x, enemy1.y = 10, 15
 enemy2.x, enemy2.y = 15, 12
 
-game.characters << player # I have the initiative
+game   = Game.new
+game.characters << player
 game.characters << enemy1
 game.characters << enemy2
 
