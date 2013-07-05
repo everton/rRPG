@@ -11,11 +11,6 @@ player.have :regeneration
 enemy1 = NonPlayerCharacter.new 'Orc 1'
 enemy2 = NonPlayerCharacter.new 'Orc 2'
 
-# Why not positionate it randomly?
-player.x, player.y =  5,  7
-enemy1.x, enemy1.y = 10, 15
-enemy2.x, enemy2.y = 15, 12
-
 game   = Game.new
 game.characters << player
 game.characters << enemy1
