@@ -1,6 +1,6 @@
 #-*- coding: utf-8 -*-
 
-require_relative 'additional_tools' # try bundler, simplecov, etc
+require_relative 'additional_tools'
 
 require 'minitest/autorun'
 
@@ -14,7 +14,6 @@ class GameTestCase < MiniTest::Unit::TestCase
     assert_equal y, char.y, 'Y'
   end
 
-  # TODO: wrap with a more intuitive method like #with_d6_returning
   def mock_rand_with!(n, &block)
     Kernel.module_eval do
       alias original_rand rand
