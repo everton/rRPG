@@ -3,13 +3,6 @@ GEM
   remote: http://gems.github.com/
   specs:
     ast (1.1.0)
-    columnize (0.3.6)
-    debugger (1.6.0)
-      columnize (>= 0.3.1)
-      debugger-linecache (~> 1.2.0)
-      debugger-ruby_core_source (~> 1.2.1)
-    debugger-linecache (1.2.0)
-    debugger-ruby_core_source (1.2.3)
     flay (1.4.2)
       ruby_parser (~> 2.0)
       sexp_processor (~> 3.0)
@@ -36,7 +29,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  debugger
   flay
   flog
   rake

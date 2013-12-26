@@ -11,5 +11,4 @@ end
 group :development do
   gem 'flog'
   gem 'rubocop'
-  gem 'debugger'
 end
