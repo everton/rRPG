@@ -13,6 +13,7 @@ begin
   SimpleCov.start do
     add_filter "/test/"
     add_filter "/vendor/"
+    add_filter "/lib/character/cli_player_character.rb"
     add_group "Support", "/support"
     add_group "Character Modules", "/character/modules"
   end
